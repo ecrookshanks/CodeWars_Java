@@ -53,6 +53,9 @@ public class MoreKataTests {
         v = Arrays.asList(1, 2);
         assertEquals(12, KataFunctions.storageOptimization(3, 3, h, v));
 
+        h = Arrays.asList(1, 7, 8, 9);
+        v = Arrays.asList(2, 5, 6);
+        assertEquals(12, KataFunctions.storageOptimization(10, 10, h, v));
     }
 
 }

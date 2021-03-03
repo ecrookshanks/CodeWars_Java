@@ -155,7 +155,7 @@ public class KataFunctions {
         }
         if ( yConsec > largestYConsec) largestYConsec = yConsec;
 
-        // edge case
+        // edge case - 1x1 has to be transformed to 2x1
         if ( largestXConsec == 1 && largestYConsec == 1) largestXConsec++;
 
         result = (largestXConsec * largestYConsec) * 2;
