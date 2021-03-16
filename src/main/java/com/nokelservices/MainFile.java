@@ -15,5 +15,9 @@ public class MainFile {
         System.out.println("Largest palindrome from 3 digit multiples: " +
                 Algorithms.largestPalindromeOf3DigitProducts());
 
+        System.out.println("Splitting a sentence");
+
+        KataFunctions.splitSentence();
+
     }
 }

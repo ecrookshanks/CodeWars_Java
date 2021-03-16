@@ -2,10 +2,7 @@ package com.nokelservices;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class KataFunctions {
 
@@ -163,4 +160,22 @@ public class KataFunctions {
         return result;
     }
 
+    public static void splitSentence(){
+
+        String sent = "The big brown dog jumped over the fence";
+
+        String[] wordArray = sent.split(" ");
+
+        // Turning the array into a list and using foreach
+        List<String> wordList = Arrays.asList(wordArray.clone());
+
+        for(String s: wordList){
+            System.out.println(s);
+        }
+
+        // using streams
+        System.out.println("And a shorter way using streams...");
+        Arrays.stream(wordArray).forEach(System.out::println);
+
+    }
 }
