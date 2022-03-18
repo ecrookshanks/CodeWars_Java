@@ -40,40 +40,34 @@ public class HungerGames {
         // need to change this based on found?  remaining could legitimately have
         // more than one remaining depending on how the list is arranged.
         boolean found = false;
-        do {
-            for (int i = 0; i < remaining.size() && !found; i++) {
-                String cur = remaining.get(i);
-                Set<String> edibles = findEdibles(cur);
-                if (edibles == null || edibles.size() == 0){
-                    continue;
-                }
-                // need to check +1 if == 0, +1 and -1 if > 0
-                if (i>0){
-                    String prev = remaining.get(i-1);
-                    if (edibles.contains(prev)){
-                        ateList.add(String.format("%s eats %s", cur, prev));
-                        remaining.remove(i-1);
-                        found = true;
-                        break;
-                    }
-                }
-                if (i < remaining.size()-1){
-                    String next = remaining.get(i+1);
-                    if (edibles.contains(next)){
-                        ateList.add(String.format("%s eats %s", cur, next));
-                        remaining.remove(i+1);
-                        found = true;
-                    }
+        for (int i = 0; i < remaining.size() && !found; i++) {
+            String cur = remaining.get(i);
+            Set<String> edibles = findEdibles(cur);
+            if (edibles == null || edibles.size() == 0){
+                continue;
+            }
+            // need to check +1 if == 0, +1 and -1 if > 0
+            if (i>0){
+                String prev = remaining.get(i-1);
+                if (edibles.contains(prev)){
+                    ateList.add(String.format("%s eats %s", cur, prev));
+                    remaining.remove(i-1);
+                    found = true;
+                    break;
                 }
             }
-            if (found) {
-                found = processList(ateList, remaining);
-                break;
+            if (i < remaining.size()-1){
+                String next = remaining.get(i+1);
+                if (edibles.contains(next)){
+                    ateList.add(String.format("%s eats %s", cur, next));
+                    remaining.remove(i+1);
+                    found = true;
+                }
             }
-            else{
-                return found;
-            }
-        } while (found);
+        }
+        if (found) {
+            found = processList(ateList, remaining);
+        }
         return found;
     }
 
