@@ -2,27 +2,15 @@ package com.nokelservices;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import org.junit.runners.JUnit4;
-//import org.junit.jupiter.api.Rule;
-//import org.junit.rules.ErrorCollector;
-//import org.hamcrest.CoreMatchers;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-public class TranspilerTests {
-
-//    @Rule
-//    public ErrorCollector collector = new ErrorCollector();
-
+public class Transpiler2Tests {
     public void expect (String actual, String expected) {
         assertEquals (expected, actual);
         //collector.checkThat (expected, CoreMatchers.equalTo (actual));
     }
 
     public void fromTo (String input, String expected) {
-        expect (Transpiler.transpile (input), expected);
+        expect (Transpiler2.transpile (input), expected);
     }
 
     public void shouldFail (String input) {
@@ -75,4 +63,5 @@ public class TranspilerTests {
     // f(a,)  ==>  expected:<[]> but was:<[f(a,)]>
     // f(x,y){a,b->a\nb} ==> expected:<f(x,y,(a,b){a[;]b;})> but was:<f(x,y,(a,b){a[]b;})>
     // run(a){as we can} ==> expected:<run(a,(){as[;we;]can;})> but was:<run(a,(){as[we]can;})>
+
 }

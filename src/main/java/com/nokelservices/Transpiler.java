@@ -20,9 +20,27 @@ public class Transpiler {
             int endLamb = exp.indexOf('}');
             String first = exp.substring(0, ndex);
             String lamb = exp.substring(ndex, endLamb+1);
-            String processedLamb = makeLambda(lamb.substring(1, (lamb.length()-1)));
+            Tuple processedLamb = makeLambda(lamb.substring(1, (lamb.length()-1)));
             String rest = exp.substring(endLamb+1);
-            result = first + processedLamb + rest;
+            //TODO: compare to position or existence of paren
+            int openParenPos = exp.indexOf('(');
+            int closeParenPos = exp.indexOf(')');
+            String finalLamb = "";
+            if (openParenPos == -1){
+                finalLamb = "(" + processedLamb + ")";
+            }
+            else if (closeParenPos < ndex){
+                first = first.substring(0, closeParenPos);
+                finalLamb = processedLamb + ")";
+                if ( closeParenPos - openParenPos > 1){
+                    first = first + ",";
+                }
+            }
+            else{
+                finalLamb = processedLamb.toString();
+            }
+
+            result = first + finalLamb + rest;
         }
         else{
             result = exp;
@@ -31,7 +49,7 @@ public class Transpiler {
         return result;
     }
 
-    private static String makeLambda(String lamb) {
+    private static Tuple makeLambda(String lamb) {
         // incoming: {a -> a}
         // outgoing: (a){a}
         String args = "";
@@ -43,8 +61,11 @@ public class Transpiler {
             if (argParts.length>1){
                 outgoing = argParts[1] + ";";
             }
+        }else if (!lamb.isEmpty()){
+            incoming = "";
+            outgoing = lamb + ";";
         }
-        return "(" + incoming + "){" + outgoing + "}";
+        return new Tuple(incoming, outgoing);
 
     }
 
@@ -60,7 +81,7 @@ public class Transpiler {
     }
 
     public static boolean validateParens(String expression){
-        Stack<Character> parens = new Stack<Character>();
+        Stack<Character> parens = new Stack<>();
         for (char ch :
                 expression.toCharArray()) {
             if(ch == '('){
@@ -71,6 +92,21 @@ public class Transpiler {
             }
         }
         return parens.size() == 0;
+    }
+
+    static class Tuple{
+        public String Part1;
+        public String Part2;
+
+        public Tuple(String one, String two){
+            Part1 = one;
+            Part2 = two;
+        }
+
+        @Override
+        public String toString() {
+            return "("+Part1+"){"+Part2+"}";
+        }
     }
 }
 
