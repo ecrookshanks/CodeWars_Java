@@ -1,0 +1,29 @@
+SOURCE LANGUAGE SPECS:
+
+function ::= expression "(" [parameters] ")" [lambda]
+           | expression lambda
+
+expression ::= nameOrNumber
+             | lambda
+
+parameters ::= expression ["," parameters]
+
+lambdaparam ::= nameOrNumber ["," lambdaparam]
+lambdastmt  ::= nameOrNumber [lambdastmt]
+
+lambda ::= "{" [lambdaparam "->"] [lambdastmt] "}"
+
+
+TARGET LANGUAGE SPECS:
+
+function ::= expression "(" [parameters] ")"
+
+expression ::= nameOrNumber
+             | lambda
+
+parameters ::= expression ["," parameters]
+
+lambdaparam ::= nameOrNumber ["," lambdaparam]
+lambdastmt  ::= nameOrNumber ";" [lambdastmt]
+
+lambda ::= "(" [lambdaparam] "){" [lambdastmt] "}"
